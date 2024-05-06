@@ -6,23 +6,39 @@ X = range(0.001, stop=2.3, length=256)
 ### <-- Aufgabe 4(b): Funktion eingeben.
 # 1/sqrt(x) approximation using Taylor series
 function inverseSquareRootApprox(x, n)
-	return 0;
+    result = 0     
+    for k in 1:n
+        result +=  binomial(-0.5, k) * (x - 1)^k  
+        
+    end
+    return result
 end
 
 ### <-- Aufgabe 4(c): Errorfunktion implementieren.
 function error(x, n)
-	return 0;
+	return abs(inverseSquareRootApprox(x, n) - 1/sqrt(x))
 end
 
 
 # plot real 1/sqrt(x)
 plt1 = plot(X, x -> 1/sqrt(x), color=:blue, lw = 3, label="1/sqrt(x)" );
 
-n = 2;
+
+
+
 # plot taylor series for n=2
-plot!(plt1, X, inverseSquareRootApprox.(X, n), color=:orange, lw = 3, label="n=2");
+plot!(plt1, X, inverseSquareRootApprox.(X, 2), color=:orange, lw = 3, label="n=2");
+# plot taylor series for n=5
+plot!(plt1, X, inverseSquareRootApprox.(X, 5), color=:red, lw = 3, label="n=5");
+# plot taylor series for n=20
+plot!(plt1, X, inverseSquareRootApprox.(X, 20), color=:violet, lw = 3, label="n=20");
+
+
+
 # plot error
-plt2 = plot(X, error.(X, n), color=:orange, label="error n=2");
+plt2 = plot(X, error.(X, 2), color=:orange, label="error n=2");
+plot!(plt2, X, error.(X, 5), color=:red, label="error n=5");
+plot!(plt2, X, error.(X, 20), color=:violet, label="error n=20");
 
 ### <-- EXERCISE 4(b,c): Bereiten Sie hier die Plots vor
 
