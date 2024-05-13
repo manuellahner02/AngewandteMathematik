@@ -20,7 +20,7 @@ function mid_square(N::Int, seed::Int=34345669)::Vector{Float64}
         extracted= digits(seed*seed)[3:length(digits(seed*seed))]
         
         if length(digits(seed*seed)) < 6
-            ectracted = [zeros(Int, 4 - length(digits)); digits]
+            ectracted = [zeros(Int, 6 - length(digits)); digits]
         end       
         
 		seed = digits_to_number(reverse(extracted))
