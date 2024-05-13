@@ -6,13 +6,24 @@ include("urand.jl")
 # TODO: 1a)
 uniform(N::Int)::Vector{Float64} = rand(Uniform(0,1),N)
 
+
+
+
+
 # TODO: 1b)
 function mid_square(N::Int, seed::Int=34345669)::Vector{Float64}
     digits_to_number(d) = sum(d.*10 .^(0:(length(d)-1)))
     number_to_digits(n) = digits(n)[3:6] 
 	ret = []
 	for _ in 1:N
-		seed = digits_to_number(number_to_digits(seed*seed))
+
+        extracted= digits(seed*seed)[3:length(digits(seed*seed))]
+        
+        if length(digits(seed*seed)) < 6
+            ectracted = [zeros(Int, 4 - length(digits)); digits]
+        end       
+        
+		seed = digits_to_number(reverse(extracted))
 		push!(ret, seed/10000)
 	end
 	return ret

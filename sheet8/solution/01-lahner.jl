@@ -38,11 +38,9 @@ end
 
 # a)
 function lcg(a::Int, c::Int, m::Int, seed::Int, n::Int)
-    # initialize an array to store generated random numbers
     random_numbers = ones(n) 
     random_numbers[1] = seed
     
-    # generate random numbers
     for i in 1:(n-1)
         random_numbers[i+1] = (a * random_numbers[i] + c) % m
     end
@@ -53,13 +51,12 @@ end
 
 # b)
 function marsaglia(U::Vector{Float64})
-    # make tuples out of sequence
+
     X = U[1:end-1]
     Y = U[2:end]
     scatter(X, Y, aspect_ratio=:equal, legend=false)
     title!("Marsaglia Scatter Plot")
 
-    # create appropriate plot using tuples
 end
 
 # c)
@@ -68,22 +65,22 @@ function knuth(a::Int, c::Int, m::Int, seed::Int, n::Int)
 
     # check if c,m are coprime
     if gcd(c, m) != 1
-        return true
+        return false
     end
 
     # check if every p also divides a-1
     for p in prime_divisors(m)
         if (a - 1) % p != 0
-            return true
+            return false
         end
     end
 
     # check if 4 divides a-1 when 4 divides m 
-    if m % 4 == 0 && (a - 1) % 4 == 0
-        return true
+    if !(m % 4 == 0 && (a - 1) % 4 == 0)
+        return false
     end
 
-    return false
+    return true
 end
 
 # Test parameters that meet Knuth's conditions:
